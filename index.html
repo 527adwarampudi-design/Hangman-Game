@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Dessert Hangman</title>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<h1>🍰 Dessert Hangman 🍩</h1>
+
+
+<div id="difficulty">
+    <h3>Select Difficulty</h3>
+
+    <button onclick="setDifficulty(8)">Easy</button>
+    <button onclick="setDifficulty(6)">Medium</button>
+    <button onclick="setDifficulty(4)">Hard</button>
+</div>
+
+
+<div>
+    <img id="healthImg" src="images/cake6.png" width="200">
+</div>
+
+
+<h2 id="wordDisplay">
+_ _ _ _ _
+</h2>
+
+
+
+<p>
+Used Letters:
+<span id="usedLetters"></span>
+</p>
+
+
+<p>
+Guesses Left:
+<span id="guessesLeft"></span>
+</p>
+
+
+
+<div>
+
+<input 
+type="text" 
+id="guessInput" 
+maxlength="1"
+placeholder="Enter a letter">
+
+<button id="guessBtn">
+Guess
+</button>
+
+</div>
+
+
+
+<p id="message"></p>
+
+
+<button onclick="restartGame()">
+Restart Game
+</button>
+
+
+<!-- JavaScript -->
+<script src="script.js"></script>
+
+</body>
+</html>
