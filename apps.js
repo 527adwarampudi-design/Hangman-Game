@@ -1,3 +1,24 @@
+const howHandle = document.getElementById("howHandle");
+const howClose = document.getElementById("howClose");
+const howToPlayPanel = document.getElementById("howToPlayPanel");
+const startBtn = document.getElementById("startBtn");
+const nameInput = document.getElementById("nameInput");
+const welcomeOverlay = document.getElementById("welcomeOverlay");
+const welcomeText = document.getElementById("welcomeText");
+const roundText = document.getElementById("roundText");
+const userHearts = document.getElementById("userHearts");
+const computerHearts = document.getElementById("computerHearts");
+const userChoiceText = document.getElementById("userChoiceText");
+const computerChoiceText = document.getElementById("computerChoiceText");
+const userChoiceImg = document.getElementById("userChoiceImg");
+const computerChoiceImg = document.getElementById("computerChoiceImg");
+const resultMessage = document.getElementById("resultMessage");
+const buttonsArea = document.getElementById("buttonsArea");
+const resetBtn = document.getElementById("resetBtn");
+const bgMusic = document.getElementById("bgMusic");
+const muteBtn = document.getElementById("muteBtn");
+const volumeSlider = document.getElementById("volumeSlider");
+
 let wordBank = [
   "cupcake",
   "brownie",
@@ -13,30 +34,124 @@ let wordBank = [
   "cannoli"
 ];
 
+let chosenWord = "";
+let guessedLetters = [];
+let guessesLeft = 0;
 
-startBtn.onclick = startGame;
-nameInput.addEventListener("keydown", e => {
-  if (e.key === "Enter") startGame();
-});
+// Start the game
+function startGame(maxGuesses) {
+  let randomIndex = Math.floor(Math.random() * wordBank.length);
+  chosenWord = wordBank[randomIndex];
 
-const howHandle = document.getElementById("howHandle");
-const howClose = document.getElementById("howClose");
-const howToPlayPanel = document.getElementById("howToPlayPanel");
+  guessesLeft = maxGuesses;
+  guessedLetters = [];
 
-/* Off canvas */
-howHandle.onclick = () => howToPlayPanel.classList.toggle("open");
-howClose.onclick = () => howToPlayPanel.classList.remove("open");
-let wrongGuesses = 0;
-const maxGuesses = 6; // easy difficulty
-const hangmanImage = document.getElementById("hangmanImage");
-const guessesLeft = document.getElementById("guessesLeft");
+  document.getElementById("guessesLeft").innerHTML = guessesLeft;
+  document.getElementById("usedLetters").innerHTML = "";
+  document.getElementById("message").innerHTML = "";
 
-function updateHangman() {
-    // Update image based on wrong guesses
-    hangmanImage.src = `health${maxGuesses - wrongGuesses}.png`; 
-    guessesLeft.textContent = `Guesses Left: ${maxGuesses - wrongGuesses}`;
+  updateCake();
+  updateWordDisplay();
 }
 
-// Example: Call this function whenever a wrong guess occurs
-wrongGuesses++;
-updateHangman();
+// ----------------------------
+// UPDATE WORD DISPLAY
+// ----------------------------
+function updateWordDisplay() {
+  let display = "";
+
+  for (let i = 0; i < chosenWord.length; i++) {
+    let letter = chosenWord.charAt(i);
+    display += guessedLetters.includes(letter) ? letter + " " : "_ ";
+  }
+
+  document.getElementById("wordDisplay").innerHTML = display;
+}
+
+// ----------------------------
+// GUESS BUTTON LOGIC
+// ----------------------------
+document.getElementById("guessBtn").onclick = function () {
+  let input = document.getElementById("guessInput");
+  let guess = input.value.toLowerCase();
+  input.value = "";
+
+  if (guess === "") return;
+
+  if (guessedLetters.includes(guess)) {
+    document.getElementById("message").innerHTML = "You already guessed that!";
+    return;
+  }
+
+  guessedLetters.push(guess);
+  document.getElementById("usedLetters").innerHTML = guessedLetters.join(", ");
+
+  if (!chosenWord.includes(guess)) {
+    guessesLeft--;
+    updateCake();
+  }
+
+  document.getElementById("guessesLeft").innerHTML = guessesLeft;
+  updateWordDisplay();
+  checkGame();
+};
+
+// ----------------------------
+// CHECK WIN / LOSE
+// ----------------------------
+function checkGame() {
+  let won = true;
+
+  for (let i = 0; i < chosenWord.length; i++) {
+    if (!guessedLetters.includes(chosenWord[i])) {
+      won = false;
+      break;
+    }
+  }
+
+  if (won) {
+    document.getElementById("message").innerHTML = "🎉 You Win!";
+  } else if (guessesLeft === 0) {
+    document.getElementById("message").innerHTML = "Game Over! The word was " + chosenWord;
+  }
+}
+
+// ----------------------------
+// CAKE STAGE (HANGMAN SLICES)
+// ----------------------------
+function updateCake() {
+  for (let i = 1; i <= 8; i++) {
+    const slice = document.getElementById("slice" + i);
+    if (!slice) continue;
+
+    slice.style.opacity = i > guessesLeft ? 0 : 1;
+  }
+
+  // Optional: update main cake image too
+  const healthImg = document.getElementById("healthImg");
+  if (healthImg) healthImg.src = "images/cake" + guessesLeft + ".png";
+}
+
+// ----------------------------
+// OFF-CANVAS "HOW TO PLAY" PANEL
+// ----------------------------
+const howPanel = document.getElementById("howToPlayPanel");
+const howHandle = document.getElementById("howHandle");
+const howClose = document.getElementById("howClose");
+
+howHandle.addEventListener("click", () => {
+  howPanel.classList.toggle("open");
+});
+
+howClose.addEventListener("click", () => {
+  howPanel.classList.remove("open");
+});
+
+// ----------------------------
+// ENTER KEY TO GUESS
+// ----------------------------
+document.getElementById("guessInput").addEventListener("keypress", function (e) {
+  if (e.key === "Enter") {
+    document.getElementById("guessBtn").click();
+  }
+});
