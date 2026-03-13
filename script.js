@@ -1,24 +1,3 @@
-const howHandle = document.getElementById("howHandle");
-const howClose = document.getElementById("howClose");
-const howToPlayPanel = document.getElementById("howToPlayPanel");
-const startBtn = document.getElementById("startBtn");
-const nameInput = document.getElementById("nameInput");
-const welcomeOverlay = document.getElementById("welcomeOverlay");
-const welcomeText = document.getElementById("welcomeText");
-const roundText = document.getElementById("roundText");
-const userHearts = document.getElementById("userHearts");
-const computerHearts = document.getElementById("computerHearts");
-const userChoiceText = document.getElementById("userChoiceText");
-const computerChoiceText = document.getElementById("computerChoiceText");
-const userChoiceImg = document.getElementById("userChoiceImg");
-const computerChoiceImg = document.getElementById("computerChoiceImg");
-const resultMessage = document.getElementById("resultMessage");
-const buttonsArea = document.getElementById("buttonsArea");
-const resetBtn = document.getElementById("resetBtn");
-const bgMusic = document.getElementById("bgMusic");
-const muteBtn = document.getElementById("muteBtn");
-const volumeSlider = document.getElementById("volumeSlider");
-
 let wordBank = [
   "cupcake",
   "brownie",
