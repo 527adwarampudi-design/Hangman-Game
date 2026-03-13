@@ -5,6 +5,11 @@ body {
    color: #4b2e2e;
    margin: 0;
    padding: 20px;
+   transition: padding-left 0.3s ease;
+}
+
+body.offcanvas-open {
+   padding-left: 320px;
 }
 .logo {
  position: fixed;   
@@ -22,11 +27,6 @@ body {
    gap: 15px;              
    flex-wrap: wrap;        
 }
-
-
-
-
-
 
 /* Off canvas */
 .how-panel {

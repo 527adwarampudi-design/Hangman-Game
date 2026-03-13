@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Dessert Hangman - Easy</title>
+<title>Dessert Hangman - Hard</title>
 
 
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins&display=swap" rel="stylesheet">
@@ -13,7 +13,7 @@
 <body>
 
 
-<h1> Dessert Hangman - Easy </h1>
+<h1> Dessert Hangman - Hard </h1>
 <img src="dessertlogo.png" alt="Dessert Logo" class="logo">
 <img id="healthImg" src="images/cake8.png" width="200">
 
@@ -21,6 +21,7 @@
 <h2 id="wordDisplay"></h2>
 <p>Used Letters: <span id="usedLetters"></span></p>
 <p>Guesses Left: <span id="guessesLeft"></span></p>
+<p>Time Left: <span id="timer">60</span> seconds</p>
 
 
 <div>
@@ -45,8 +46,8 @@
 
 <script src="script.js"></script>
 <script>
-   // Start game with Easy difficulty (8 guesses)
-   startGame(8);
+   // Start game with Hard difficulty (4 guesses)
+   startGame(4,hardWords);
 </script>
 
 
